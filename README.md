@@ -13,12 +13,22 @@ The Library Management System is a web application that allows users to manage b
 2. Open your web browser and go to `http://localhost:8000` to access the API documentation.
 
 ## API Endpoints
+### Books
+
 - `GET /api/books`: Get all books
 - `GET /api/books/{id}`: Get a book by ID
 - `POST /api/books`: Add a new book
 - `PUT /api/books/{id}`: Update a book
 - `DELETE /api/books/{id}`: Delete a book
 - `POST /api/books/{id}/{borrower_id}`: Borrow a book
+
+### Borrowers
+
+- `GET /api/borrowers`: Get all borrowers
+- `GET /api/borrowers/{id}`: Get a borrower by ID
+- `POST /api/borrowers`: Add a new borrower
+- `PUT /api/borrowers/{id}`: Update a borrower
+- `DELETE /api/borrowers/{id}`: Delete a borrower
 
 ## Configuration
 - Database URL: Set the database URL in the `.env` file
