@@ -32,8 +32,7 @@ The Library Management System is a web application that allows users to manage b
 5. Push to the branch (`git push origin feature`)
 6. Create a new Pull Request
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
 
 ## Credits
 - [@BrightTonny](https://github.com/BrightTonny)
