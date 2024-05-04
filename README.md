@@ -1,7 +1,7 @@
 # Library Management System
 
 ## Description
-The Library Management System is a web application that allows users to manage books and borrowers in a library. It provides functionalities such as adding, updating, and deleting books, as well as borrowing and returning books.
+The Library Management System is a web application that allows users to manage books and borrowers in a library. It provides functionalities such as adding, updating, and deleting books, as well as borrowing books.
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/your/repository.git`
