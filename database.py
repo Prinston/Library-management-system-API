@@ -4,33 +4,29 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from dotenv import load_dotenv
 
-
-
-
+# Load environment variables from .env file
 load_dotenv()
 
-
-
-
+# Get database credentials from environment variables
 DB_USER = os.getenv("DB_USER", "postgres")
 DB_PASS = os.getenv("DB_PASS", "1234")
 DB_SERVER = os.getenv("DB_SERVER", "localhost")
+DB_PORT = os.getenv("DB_PORT", "5432")
 DB_NAME = os.getenv("DB_NAME", "postgres")
 
+# Create the database URL
+DB_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_SERVER}:{DB_PORT}/{DB_NAME}"
 
-DB_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_SERVER}/{DB_NAME}"
-
-
+# Create the database engine
 engine = create_engine(DB_URL)
 
+# Create a base class for declarative class definitions
 Base = declarative_base()
 
+# Create a sessionmaker that will be used to create sessions
 SessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 
-
-
-
-
+# Define the Book class
 class Book(Base):
 
     __tablename__ = "books"
@@ -44,6 +40,7 @@ class Book(Base):
     borrower_id = Column(Integer, ForeignKey('borrower.id'))
     borrower = relationship('Borrower', back_populates='books')
 
+# Define the Borrower class
 class Borrower(Base):
 
     __tablename__ = "borrower"
