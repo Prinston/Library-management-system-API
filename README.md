@@ -6,7 +6,7 @@ The Library Management System is a web application that allows users to manage b
 ## Installation
 1. Clone the repository: `git clone https://github.com/your/repository.git`
 2. Install dependencies: `pip install -r requirements.txt`
-3. Set up the database: `python setup.py`
+3. Set up the database: `python database.py`
 
 ## Usage
 1. Start the FastAPI server: `uvicorn main:app --reload`
@@ -31,8 +31,8 @@ The Library Management System is a web application that allows users to manage b
 - `DELETE /api/borrowers/{id}`: Delete a borrower
 
 ## Configuration
-- Database URL: Set the database URL in the `.env` file
-- FastAPI configuration: Modify the `main.py` file to change the FastAPI settings
+- Database URL: Set the database URL in the `database.py` file
+
 
 ## Contributing
 1. Fork the repository
