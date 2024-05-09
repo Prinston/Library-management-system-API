@@ -6,6 +6,7 @@ The Library Management System is a web application that allows users to manage b
 ## Installation
 1. Clone the repository: `git clone https://github.com/your/repository.git`
 2. Install dependencies: `pip install -r requirements.txt`
+3. Set up the database: `database.py`
 
 
 ## Usage
