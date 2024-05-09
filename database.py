@@ -1,7 +1,8 @@
-from sqlalchemy import create_engine, String, Column, Integer, ForeignKey
+from sqlalchemy import create_engine, String, Column, Integer, ForeignKey,DateTime
 import os
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -50,3 +51,13 @@ class Borrower(Base):
     email= Column(String(80), unique=True)
     phone = Column(Integer)
     books = relationship('Book', back_populates='borrower')
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+    

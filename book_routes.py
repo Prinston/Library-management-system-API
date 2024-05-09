@@ -3,14 +3,9 @@ from database import SessionLocal
 from sqlalchemy.orm import Session
 from database import Book as Book_DB, Borrower as Borrower_DB
 from models import BookModel, UpdateBook, BorrowSuccessResponse
+from utils import get_db
 
-# Function to get a database session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+
 
 # Creating a new APIRouter instance with a prefix and tags
 api_router = APIRouter(prefix="/api", tags=['Books'])
@@ -70,11 +65,8 @@ def update(id: int, update_book: UpdateBook, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book Not Found")
 
     try:
-        for field in ['title', 'author', 'ISBN', 'quantity_available', 'borrower_id']:
-            new_value = getattr(update_book, field)
-            if new_value is not None:
-                setattr(book, field, new_value)
-
+        update_data = update_book.dict(exclude_unset=True)
+        db.query(Book_DB).filter(Book_DB.id == id).update(update_data, synchronize_session=False)
         db.commit()
         db.refresh(book)
     except Exception as e:

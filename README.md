@@ -1,12 +1,12 @@
 # Library Management System
 
 ## Description
-The Library Management System is a web application that allows users to manage books and borrowers in a library. It provides functionalities such as adding, updating, and deleting books, as well as borrowing books.
+The Library Management System is a web application that allows users to manage books and borrowers in a library. It provides functionalities such as adding, updating, and deleting books, as well as borrowing books. Additionally, the system includes user authentication to ensure secure access to the API endpoints.
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/your/repository.git`
 2. Install dependencies: `pip install -r requirements.txt`
-3. Set up the database: `python database.py`
+
 
 ## Usage
 1. Start the FastAPI server: `uvicorn main:app --reload`
@@ -30,6 +30,11 @@ The Library Management System is a web application that allows users to manage b
 - `PUT /api/borrowers/{id}`: Update a borrower
 - `DELETE /api/borrowers/{id}`: Delete a borrower
 
+### Authentication
+
+- `POST /auth`: Create a new user with username, email, and password.
+- `POST /auth/token`: Generate an access token for authentication.
+
 ## Configuration
 - Database URL: Set the database URL in the `database.py` file
 
@@ -41,8 +46,6 @@ The Library Management System is a web application that allows users to manage b
 4. Commit your changes (`git commit -am 'Add new feature'`)
 5. Push to the branch (`git push origin feature`)
 6. Create a new Pull Request
-
-
 
 ## Credits
 - [@BrightTonny](https://github.com/BrightTonny)
