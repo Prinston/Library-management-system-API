@@ -3,6 +3,8 @@
 ## Description
 The Library Management System is a web application that allows users to manage books and borrowers in a library. It provides functionalities such as adding, updating, and deleting books, as well as borrowing books. Additionally, the system includes user authentication to ensure secure access to the API endpoints.
 
+During the development of this project, I discovered the importance of database migrations and implemented Alembic to handle schema changes efficiently. Although I had a difficult time with Alembic initially, I eventually pulled through and successfully integrated it into the system. This ensures that any changes to the database schema are versioned and applied consistently across different environments. I also learned about the need for secure user authentication and familiarized myself with JSON Web Tokens (JWT), which I implemented to handle user authentication securely.
+
 ## Installation
 1. Clone the repository: `git clone https://github.com/your/repository.git`
 2. Install dependencies: `pip install -r requirements.txt`
