@@ -7,13 +7,20 @@ from database import User, SessionLocal
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
+import logging
+import os
+from dotenv import load_dotenv
+
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Create a new APIRouter instance for authentication routes
 auth_router = APIRouter(prefix="/auth", tags=['auth'])
 
 # Secret key and algorithm for JWT token
-SECRET_KEY = 'c6fe1dae80152a34dc6eae9c240d341a8291422137ab6b32712fe2fa3cbd353e'
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 
 # Create a password context for hashing passwords
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -35,11 +42,19 @@ class Token(BaseModel):
 # Endpoint to create a new user
 @auth_router.post("/", status_code=status.HTTP_201_CREATED)
 def create_user(user: CreateUserRequest, db: Session = Depends(get_db)):
-    new_user = User(username=user.username, email=user.email, hashed_password=pwd_context.hash(user.password))
+    try:
+        existing_user = db.query(User).filter(User.email == user.email).first()
+        if existing_user:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="User Already Exists")
 
-    db.add(new_user)
-    db.commit()
-    return new_user
+        new_user = User(username=user.username, email=user.email, hashed_password=pwd_context.hash(user.password))
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+        return new_user
+    except Exception as e:
+        logging.error(f"Error creating user: {e}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error")
 
 # Endpoint to generate an access token for authentication
 @auth_router.post("/token", response_model=Token)
@@ -52,7 +67,7 @@ def login_for_access_token(db: Session = Depends(get_db), data_form: OAuth2Passw
     return {"access_token": token, "token_type": "bearer"}
 
 # Function to authenticate a user
-def authenticate_user(username: str, password: str, db):
+def authenticate_user(username: str, password: str, db: Session):
     user = db.query(User).filter(User.username == username).first()
     if not user or not pwd_context.verify(password, user.hashed_password):
         return None

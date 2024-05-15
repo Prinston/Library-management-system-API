@@ -57,6 +57,9 @@ def borrow_book(id: int, borrower_id: int, db: Session = Depends(get_db)):
     return {"message": "Book borrowed successfully"}
 
 
+
+
+
 # PUT endpoint to update a book by ID
 @api_router.put("/books/{id}", response_model=BookModel, status_code=status.HTTP_200_OK)
 def update(id: int, update_book: UpdateBook, db: Session = Depends(get_db)):
